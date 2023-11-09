@@ -5,19 +5,22 @@
     "version": "1.0.0",
     "orientation": "default",
     "icon": "./src/assets/dice.png",
+    "backgroundColor": "#24180f",
     "splash": {
       "image": "./src/assets/dice.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#24180f"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["**/*"],
     "ios": {
+      "buildNumber": "1.0.0",
       "supportsTablet": true
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/dice.png",
         "backgroundColor": "#FFFFFF"

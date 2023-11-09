@@ -1,4 +1,5 @@
 {
   "cSpell.words": ["Pressable"],
-  "files.autoSave": "off"
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true
 }
