@@ -1,4 +1,8 @@
-export function generateRandomBetween(min, max, exclude) {
+export function generateRandomBetween(
+  min: number,
+  max: number,
+  exclude: number,
+) {
   const rndNum = Math.floor(Math.random() * (max - min)) + min;
 
   if (rndNum === exclude) {

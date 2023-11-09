@@ -1,15 +1,16 @@
 import {Alert} from 'react-native';
 import {generateRandomBetween} from './generateRandomBetween';
+import {Dispatch} from 'react';
 
 let minBoundary = 1;
 let maxBoundary = 100;
 
 export function nextGuessHandler(
-  direction,
-  currentGuess,
-  userNumber,
-  setCurrentGuess,
-  setGuessRounds,
+  direction: string,
+  currentGuess: number,
+  userNumber: number,
+  setCurrentGuess: (number: number) => void,
+  setGuessRounds: Dispatch<React.SetStateAction<number[]>>,
 ) {
   if (
     (direction === 'lower' && currentGuess < userNumber) ||
@@ -32,7 +33,7 @@ export function nextGuessHandler(
     currentGuess,
   );
   setCurrentGuess(newRndNum);
-  setGuessRounds(prevGuessRounds => [...prevGuessRounds, newRndNum]);
+  setGuessRounds(prevGuessRounds => [newRndNum, ...prevGuessRounds]);
 }
 
 export const setInitialBoundaries = () => {

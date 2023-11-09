@@ -3,35 +3,37 @@ import {
   StyleSheet,
   ImageBackground,
   SafeAreaView,
-  Dimensions,
+  useWindowDimensions,
 } from 'react-native';
 import {LinearGradient} from 'expo-linear-gradient';
 import {useFonts} from 'expo-font';
 import AppLoading from 'expo-app-loading';
 import {StatusBar} from 'expo-status-bar';
 
-import Colors from './src/constants/colors';
-import {StartGameScreen} from './src/screens/StartGameScreen';
-import GameScreen from './src/screens/GameScreen';
-import {GameOverScreen} from './src/screens/GameOverScreen';
+import COLORS from './src/constants/colors';
+import {StartGameScreen} from './src/screens/StartGameScreen/StartGameScreen';
+import {GameOverScreen} from './src/screens/GameOverScreen/GameOverScreen';
+import {GameScreen} from './src/screens/GameScreen/GameScreen';
 
 export default function App() {
-  const [userNumber, setUserNumber] = useState(0);
-  const [gameIsOver, setGameIsOver] = useState(true);
-  const [guessRounds, setGuessRounds] = useState(0);
+  const [userNumber, setUserNumber] = useState<number>(0);
+  const [gameIsOver, setGameIsOver] = useState<boolean>(true);
+  const [guessRounds, setGuessRounds] = useState<number>(0);
 
   const [fontsLoaded] = useFonts({
     'open-sans': require('./src/assets/fonts/OpenSans-Regular.ttf'),
     'open-sans-bold': require('./src/assets/fonts/OpenSans-Bold.ttf'),
   });
 
-  const pickedNumberHandler = pickedNumber => {
+  const {width, height} = useWindowDimensions();
+  const style = styles(width, height);
+
+  const pickedNumberHandler = (pickedNumber: number) => {
     setUserNumber(pickedNumber);
-    console.log(pickedNumber, typeof pickedNumber);
     setGameIsOver(false);
   };
 
-  const gameOverHandler = numberOfRounds => {
+  const gameOverHandler = (numberOfRounds: number) => {
     setGameIsOver(true);
     setGuessRounds(numberOfRounds);
   };
@@ -41,23 +43,20 @@ export default function App() {
     setGuessRounds(0);
   };
 
-  const roundsCounterHandler = () => {
-    setGuessRounds(prevState => prevState + 1);
-  };
   return (
     <>
       {fontsLoaded ? (
         <>
           <StatusBar style="light" />
           <LinearGradient
-            colors={[Colors.primary700, Colors.accent500]}
-            style={styles.rootScreen}>
+            colors={[COLORS.primary700, COLORS.accent500]}
+            style={style.rootScreen}>
             <ImageBackground
               source={require('./src/assets/images/background.png')}
               resizeMode="cover"
-              style={styles.rootScreen}
-              imageStyle={styles.backgroundImage}>
-              <SafeAreaView style={styles.rootScreen}>
+              style={style.rootScreen}
+              imageStyle={style.backgroundImage}>
+              <SafeAreaView style={style.rootScreen}>
                 {gameIsOver && userNumber ? (
                   <GameOverScreen
                     userNumber={userNumber}
@@ -68,7 +67,6 @@ export default function App() {
                   <GameScreen
                     userNumber={userNumber}
                     onGameOver={gameOverHandler}
-                    onRoundsCounter={roundsCounterHandler}
                   />
                 ) : (
                   <StartGameScreen onPickNumber={pickedNumberHandler} />
@@ -83,14 +81,16 @@ export default function App() {
     </>
   );
 }
-const d = Dimensions.get('window');
-const styles = StyleSheet.create({
-  rootScreen: {
-    flex: 1,
-  },
-  backgroundImage: {
-    opacity: 0.15,
-    width: d.width,
-    height: d.height,
-  },
-});
+
+export const styles = (width: number, height: number) => {
+  return StyleSheet.create({
+    rootScreen: {
+      flex: 1,
+    },
+    backgroundImage: {
+      opacity: 0.15,
+      width: width,
+      height: height,
+    },
+  });
+};
