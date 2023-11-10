@@ -14,20 +14,29 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "buildNumber": "1.0.0",
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.setredeyes.SetAndGuessMyNumber"
     },
     "android": {
       "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/dice.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.setredeyes.SetAndGuessMyNumber"
     },
     "web": {
       "favicon": "./src/assets/dice.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "59b1cb64-71ca-4852-b616-406001897b27"
+      }
     }
   }
 }
